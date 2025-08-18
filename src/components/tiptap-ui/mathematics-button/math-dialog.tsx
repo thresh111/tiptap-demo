@@ -15,6 +15,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
+import katex from "katex";
+import "katex/dist/katex.min.css";
+
 // --- Math Utils ---
 import { insertMath, type MathType } from "./use-mathematics";
 
@@ -43,9 +46,9 @@ export function MathDialog({
   onInserted,
   onUpdated,
 }: MathDialogProps) {
-  const [latex, setLatex] = React.useState("");
-  const [error, setError] = React.useState("");
   const [isInserting, setIsInserting] = React.useState(false);
+
+  const previewRef = React.useRef<HTMLDivElement>(null);
 
   const isUpdate = mode === "update";
 
@@ -67,6 +70,9 @@ export function MathDialog({
     : type === "inline"
     ? "输入 LaTeX 代码来插入行内数学公式"
     : "输入 LaTeX 代码来插入块级数学公式";
+
+  const [latex, setLatex] = React.useState(initialLatex ?? defaultLatex);
+  const [error, setError] = React.useState("");
 
   // 重置表单状态
   React.useEffect(() => {
@@ -173,6 +179,17 @@ export function MathDialog({
     [handleSubmit]
   );
 
+  React.useEffect(() => {
+    if (!open) return;
+
+    setTimeout(() => {
+      katex.render(latex || "", previewRef.current as HTMLElement, {
+        throwOnError: false,
+        displayMode: type !== "inline",
+      });
+    }, 0);
+  }, [latex, type, open, previewRef]);
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
@@ -201,11 +218,7 @@ export function MathDialog({
             <div className="grid gap-2">
               <Label>预览</Label>
               <div className="p-3 bg-muted rounded-md border">
-                <div className="text-sm font-mono text-muted-foreground">
-                  {type === "inline" ? "$" : "$$"}
-                  {latex}
-                  {type === "inline" ? "$" : "$$"}
-                </div>
+                <div ref={previewRef} className="text-sm text-muted-foreground" />
                 <div className="mt-2 text-xs text-muted-foreground">提示：在编辑器中渲染时会显示为数学公式</div>
               </div>
             </div>
