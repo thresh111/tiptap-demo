@@ -18,6 +18,10 @@
   transition-duration: var(--tt-transition-duration-default);
   transition-timing-function: var(--tt-transition-easing-default);
 
+  &:hover {
+    cursor: pointer;
+  }
+
   // focus-visible
   &:focus-visible {
     outline: none;
@@ -153,9 +157,7 @@
   }
 
   /* button only has 2 icons and one of them is dropdown small */
-  &:has(> svg:nth-of-type(2)):has(> .tiptap-button-dropdown-small):not(
-      :has(> svg:nth-of-type(3))
-    ):not(:has(> .tiptap-button-text)) {
+  &:has(> svg:nth-of-type(2)):has(> .tiptap-button-dropdown-small):not( :has(> svg:nth-of-type(3))):not(:has(> .tiptap-button-text)) {
     gap: 0;
     padding-right: 0.25rem;
 
