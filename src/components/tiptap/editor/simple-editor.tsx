@@ -10,6 +10,7 @@ import { Typography } from "@tiptap/extension-typography";
 import { Highlight } from "@tiptap/extension-highlight";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
+import { TextStyle, Color } from "@tiptap/extension-text-style";
 import { Selection } from "@tiptap/extensions";
 import Math from "@tiptap/extension-mathematics";
 
@@ -36,6 +37,7 @@ import { ImageUploadButton } from "@/components/tiptap-ui/image-upload-button";
 import { ListDropdownMenu } from "@/components/tiptap-ui/list-dropdown-menu";
 import { BlockquoteButton } from "@/components/tiptap-ui/blockquote-button";
 import { CodeBlockButton } from "@/components/tiptap-ui/code-block-button";
+import { TextColorPopover, TextColorPopoverButton } from "@/components/tiptap-ui/text-color";
 import {
   ColorHighlightPopover,
   ColorHighlightPopoverContent,
@@ -98,6 +100,7 @@ const MainToolbarContent = ({
         <MarkButton type="strike" />
         <MarkButton type="code" />
         <MarkButton type="underline" />
+        {!isMobile ? <TextColorPopover /> : <TextColorPopoverButton />}
         {!isMobile ? <ColorHighlightPopover /> : <ColorHighlightPopoverButton onClick={onHighlighterClick} />}
         {!isMobile ? <LinkPopover /> : <LinkButton onClick={onLinkClick} />}
       </ToolbarGroup>
@@ -175,6 +178,8 @@ export function SimpleEditor() {
       }),
       HorizontalRule,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
+      TextStyle,
+      Color,
       TaskList,
       TaskItem.configure({ nested: true }),
       Highlight.configure({ multicolor: true }),
