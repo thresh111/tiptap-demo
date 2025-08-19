@@ -262,10 +262,21 @@ export function MathDialog({
 
         <DialogFooter className="flex-col sm:flex-row">
           <div className="flex gap-2">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={isInserting}>
+            <Button
+              type="button"
+              variant="outline"
+              className={"hover:cursor-pointer"}
+              onClick={() => onOpenChange(false)}
+              disabled={isInserting}
+            >
               取消
             </Button>
-            <Button type="button" onClick={handleSubmit} disabled={isInserting || !latex.trim()}>
+            <Button
+              type="button"
+              className={"hover:cursor-pointer"}
+              onClick={handleSubmit}
+              disabled={isInserting || !latex.trim()}
+            >
               {isUpdate ? (isInserting ? "更新中..." : "更新") : isInserting ? "插入中..." : "插入"}
             </Button>
           </div>
