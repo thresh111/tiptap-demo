@@ -46,7 +46,7 @@ import {
 import { LinkPopover, LinkContent, LinkButton } from "@/components/tiptap-ui/link-popover";
 import { MarkButton } from "@/components/tiptap-ui/mark-button";
 import { MathematicsButton } from "@/components/tiptap-ui/mathematics-button";
-import { TextAlignButton } from "@/components/tiptap-ui/text-align-button";
+import { TextAlignButton } from "@/components/tiptap-ui/text-align";
 import { UndoRedoButton } from "@/components/tiptap-ui/undo-redo";
 
 // --- Icons ---
